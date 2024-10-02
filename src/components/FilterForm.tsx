@@ -2,7 +2,12 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
-function FilterForm({ setShowFilter, setFilterObject }) {
+interface FilterFormProps {
+  setShowFilter: (show: boolean) => void;
+  setFilterObject: (filter: { startDate: string; endDate: string; status: string; gender: string }) => void;
+}
+
+function FilterForm({ setShowFilter, setFilterObject }: FilterFormProps) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("");
