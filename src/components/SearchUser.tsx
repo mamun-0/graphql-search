@@ -6,9 +6,8 @@ import { USERS_QUERY } from "@/queries/index";
 import UserTable from "./UserTable";
 import { GridLoader } from "react-spinners";
 
-function SearchUser({ searchKeyword, startDate, endDate }) {
+function SearchUser({ searchKeyword, filterObjet, orderType }) {
   const [orderBy, setOrderBy] = useState("name");
-  const [orderType, setOrderType] = useState("asc");
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -17,18 +16,24 @@ function SearchUser({ searchKeyword, startDate, endDate }) {
   let variables = {
     searchKeyword,
     orderBy,
-    orderType,
     offset,
+    orderType,
     first: pageSize,
+    ...filterObjet,
   };
-
-  if (startDate && endDate) {
+  if (filterObjet.status === "true") {
     variables = {
       ...variables,
-      startDate,
-      endDate,
+      status: true,
     };
   }
+  if (filterObjet.status === "false") {
+    variables = {
+      ...variables,
+      status: false,
+    };
+  }
+  console.log(variables);
   const [result, reexecuteQuery] = useQuery({
     query: USERS_QUERY,
     variables,
@@ -38,7 +43,7 @@ function SearchUser({ searchKeyword, startDate, endDate }) {
 
   useEffect(() => {
     reexecuteQuery({ requestPolicy: "network-only" });
-  }, [currentPage, orderBy, orderType]);
+  }, [currentPage, orderBy]);
 
   if (fetching)
     return (
@@ -90,7 +95,9 @@ function SearchUser({ searchKeyword, startDate, endDate }) {
           </div>
         </>
       ) : (
-        <p className="text-lg text-center mt-4 text-red-500">Users not found 😢</p>
+        <p className="text-lg text-center mt-4 text-red-500">
+          Users not found 😢
+        </p>
       )}
     </div>
   );

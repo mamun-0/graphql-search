@@ -7,7 +7,14 @@ function UserTable({ users, setOrderBy, orderBy }) {
       <table className="w-full border border-gray-600">
         <thead>
           <tr>
-            <th className="border border-gray-600">SL</th>
+            <th
+              className="border border-gray-600 hover:bg-gray-500 cursor-pointer"
+              onClick={() => {
+                setOrderBy("id");
+              }}
+            >
+              SL {orderBy == "id" ? <span>⬆</span> : <span>⬇</span>}
+            </th>
             <th
               className="border border-gray-600 cursor-pointer hover:bg-gray-500"
               onClick={() => {
@@ -28,7 +35,7 @@ function UserTable({ users, setOrderBy, orderBy }) {
           </tr>
         </thead>
         <tbody className="font-mono">
-          {users.map((user, idx) => {
+          {users.map((user) => {
             const { name, email, cpf, id } = user.node;
             return (
               <tr
@@ -39,14 +46,14 @@ function UserTable({ users, setOrderBy, orderBy }) {
                     : "bg-red-200 hover:bg-red-800 hover:text-white"
                 }`}
               >
-                <td className="border border-gray-600">{idx + 1}</td>
+                <td className="border border-gray-600">{id}</td>
                 <td className="border border-gray-600">
                   {name ? name : "null"}
                 </td>
                 <td className="border border-gray-600">
                   {email ? email : "null"}
                 </td>
-                <td className="border border-gray-600">{cpf?cpf:"-"}</td>
+                <td className="border border-gray-600">{cpf ? cpf : "-"}</td>
               </tr>
             );
           })}
