@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
     "start": "next start",
     "lint": "next lint",
      "build": "NEXT_PUBLIC_IGNORE_BUILD_ERRORS=true next build"

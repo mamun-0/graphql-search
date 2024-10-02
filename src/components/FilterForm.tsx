@@ -1,10 +1,15 @@
-'use client'
-import { useState } from "react";
+"use client";
+import { FormEvent, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
 interface FilterFormProps {
   setShowFilter: (show: boolean) => void;
-  setFilterObject: (filter: { startDate: string; endDate: string; status: string; gender: string }) => void;
+  setFilterObject: (filter: {
+    startDate: string;
+    endDate: string;
+    status: string;
+    gender: string;
+  }) => void;
 }
 
 function FilterForm({ setShowFilter, setFilterObject }: FilterFormProps) {
@@ -23,7 +28,7 @@ function FilterForm({ setShowFilter, setFilterObject }: FilterFormProps) {
   const clearGender = () => {
     setGender("");
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setFilterObject({ startDate, endDate, status, gender });
     setShowFilter(false);
